@@ -10,7 +10,11 @@ module.exports ={
         })
     }
 }
+const a=3
 
+function i(){
+    a=5
+}
 const add =(value,file) =>{
     values.push(value)
     save(file)
