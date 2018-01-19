@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Books</title>
+</head>
+<body>
+    <div style="width:900px; margin : 0 auto; position:relative;">
+        <div style="width:60%; float:left;top:200px">
+            <h1>Ma liste de livres</h1>
+            <ul id="bookList">
+                
+            </ul>
+        </div>
+   
+        <div style="width:25% ;float:right; margin-top:100px; background-color :gray; padding : 50px">
+            <form id="book-form">
+                <label for="title">Titre</label>
+                <input type="text" name="title"></br>
+                <label for="author">Auteur</label>
+                <input type="author" name="author"></br>
+                <input type="submit" value="Sauvegarder">
+
+            </form>
+        </div>
+    </div>
+    <script>
+
+    document.getElementById('book-form').addEventListener('submit',function(e){
+        e.preventDefault();
+        let form = new FormData(document.getElementById('book-form'));
+        let object = {};
+        form.forEach((value,key) =>{
+            object[key]=value;
+        })
+        var json = JSON.stringify(object);
+        console.log(json)
+        fetch('/api/books',{
+            headers:{
+                'Accept':'application/json',
+                'Content-Type':'application/json'
+            },
+            method :'POST',
+            body : json
+        }).then(response=>{
+            response.json().then(data=>{
+                let lst = data.reduce((prev,current)=>{
+                    return `${prev}\n <li><b>Titre</b> :   ${current.title}  ==>  <b>Author</b> :   ${current.author}</li>`
+                },'')
+                document.getElementById('bookList').innerHTML=lst;
+                
+            })
+        
+
+        }).catch(err=>{
+            console.log(err)
+        })
+           
+        
+    })
+    fetch('/api/books')
+        .then(response=>{
+            response.json().then(data=>{
+                let lst = data.reduce((prev,current)=>{
+                    return `${prev}\n <li><b>Titre</b> :   ${current.title}  ==>  <b>Author</b> :   ${current.author}</li>`
+                },'')
+                document.getElementById('bookList').innerHTML=lst;
+                
+            })
+        
+
+        }).catch(err=>{
+            console.log(err)
+        })
+    
+
+       
+    </script>
+</body>
+</html>

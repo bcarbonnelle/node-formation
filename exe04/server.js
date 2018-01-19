@@ -9,7 +9,7 @@ const routes = [
 ]
 
 const router = (req,res) =>{
-    let indexRoute = routes.findIndex(item=>item.url === req.url)
+    let indexRoute = routes.findIndex(item=>item.url === req.url) //renvoi l'index de l'array 'routes'
     if(indexRoute!== -1){
         require(`./routes/${routes[indexRoute].controller}`)(req,res)
     } else {
