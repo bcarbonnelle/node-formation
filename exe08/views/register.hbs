@@ -1,0 +1,16 @@
+{{#each errors as |error|}}
+Error : {{error.msg}}<br/>
+{{/each}}
+<form action="/login" class="form" method="post">
+    <h2>Login</h2>
+    <label for="name">Name</label>
+    <input type="name" name="email" value={{user.name}} >
+    <label for="email">Email Address</label>
+    <input type="email" name="email" value={{user.email}}>
+    <label for="password">Password</label>
+    <input type="password" name="password" value={{user.password}}>
+    <label for="confirmPassword">Confirm the Password</label>
+    <input type="confirmPassword" name="confirmPassword" value={{user.password.confirm}}>
+    
+    <input type="submit" value="Register" class="button">
+</form>
